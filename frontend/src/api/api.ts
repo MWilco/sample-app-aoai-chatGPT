@@ -23,9 +23,9 @@ export async function conversationApi(options: ConversationRequest, abortSignal:
  //       return [];
  //   }
 
- //   const payload = await response.json();
- //   return payload;
-//}
+    const payload = await response.json();
+    return payload;
+}
 
 // export const fetchChatHistoryInit = async (): Promise<Conversation[] | null> => {
 export const fetchChatHistoryInit = (): Conversation[] | null => {

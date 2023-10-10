@@ -8,7 +8,7 @@ import rehypeRaw from "rehype-raw";
 import uuid from 'react-uuid';
 
 import styles from "./Chat.module.css";
-import Azure from "../../assets/Azure.svg";
+import Azure from "../../assets/BM_TBI_RGB.svg";
 
 import {
     ChatMessage,
@@ -69,9 +69,9 @@ const Chat = () => {
 
     useEffect(() => {
         if(appStateContext?.state.isCosmosDBAvailable?.status === CosmosDBStatus.NotWorking && appStateContext.state.chatHistoryLoadingState === ChatHistoryLoadingState.Fail && hideErrorDialog){
-            let subtitle = `${appStateContext.state.isCosmosDBAvailable.status}. Please contact the site administrator.`
+            let subtitle = `${appStateContext.state.isCosmosDBAvailable.status}. Neem contact op met de ChatTBI-administrator.`
             setErrorMsg({
-                title: "Chat history is not enabled",
+                title: "Chat-historie is niet beschikbaar",
                 subtitle: subtitle
             })
             toggleErrorDialog();
@@ -498,7 +498,7 @@ const Chat = () => {
     }, [showLoadingMessage, processMessages]);
 
     const onShowCitation = (citation: Citation) => {
-        setActiveCitation([citation.content, citation.id, citation.title ?? "", citation.filepath ?? "", "", ""]);
+        setActiveCitation([citation.content, citation.id, citation.title ?? "", citation.filepath ?? "", citation.url ?? "", ""]);
         setIsCitationPanelOpen(true);
     };
 
@@ -544,8 +544,8 @@ const Chat = () => {
                                     className={styles.chatIcon}
                                     aria-hidden="true"
                                 />
-                                <h1 className={styles.chatEmptyStateTitle}>Start chatting</h1>
-                                <h2 className={styles.chatEmptyStateSubtitle}>This chatbot is configured to answer your questions</h2>
+                                <h1 className={styles.chatEmptyStateTitle}>Begin een gesprek</h1>
+                                <h2 className={styles.chatEmptyStateSubtitle}>Deze chatbot is gemaakt om antwoord te geven op je vragen</h2>
                             </Stack>
                         ) : (
                             <div className={styles.chatMessageStream} style={{ marginBottom: isLoading ? "40px" : "0px"}} role="log">
@@ -615,10 +615,10 @@ const Chat = () => {
                                         },
                                         root: {
                                             color: '#FFFFFF',
-                                            background: "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)"
+                                            background: "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #a816d9 33.63%, #a816d9 70.31%, #a816d9 100%)"
                                         },
                                         rootDisabled: {
-                                            background: "#BDBDBD"
+                                            background: "#cccccc"
                                         }
                                     }}
                                     className={styles.newChatIcon}
@@ -635,7 +635,7 @@ const Chat = () => {
                                         },
                                         root: {
                                             color: '#FFFFFF',
-                                            background: disabledButton() ? "#BDBDBD" : "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #0F6CBD 33.63%, #2D87C3 70.31%, #8DDDD8 100%)",
+                                            background: disabledButton() ? "#cccccc" : "radial-gradient(109.81% 107.82% at 100.1% 90.19%, #a816d9 33.63%, #a816d9 70.31%, #a816d9 100%)",
                                             cursor: disabledButton() ? "" : "pointer"
                                         },
                                     }}
@@ -655,7 +655,7 @@ const Chat = () => {
                             </Stack>
                             <QuestionInput
                                 clearOnSend
-                                placeholder="Type a new question..."
+                                placeholder="Stel een nieuwe vraag..."
                                 disabled={isLoading}
                                 onSend={(question, id) => {
                                     appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
@@ -667,10 +667,10 @@ const Chat = () => {
                     {messages && messages.length > 0 && isCitationPanelOpen && activeCitation && (
                     <Stack.Item className={styles.citationPanel} tabIndex={0} role="tabpanel" aria-label="Citations Panel">
                         <Stack aria-label="Citations Panel Header Container" horizontal className={styles.citationPanelHeaderContainer} horizontalAlign="space-between" verticalAlign="center">
-                            <span aria-label="Citations" className={styles.citationPanelHeader}>Citations</span>
-                            <IconButton iconProps={{ iconName: 'Cancel'}} aria-label="Close citations panel" onClick={() => setIsCitationPanelOpen(false)}/>
+                            <span aria-label="Bronnen" className={styles.citationPanelHeader}>Bronnen</span>
+                                    <IconButton iconProps={{ iconName: 'Cancel' }} styles={{ icon: { color: '#a816d9', }, }} aria-label="Close citations panel" onClick={() => setIsCitationPanelOpen(false)}/>
                         </Stack>
-                        <h5 className={styles.citationPanelTitle} tabIndex={0}>{activeCitation[2]}</h5>
+                                <h5 className={styles.citationPanelTitle} tabIndex={0}> <a href={activeCitation[4]} target="_blank">{activeCitation[3]}</a></h5>
                         <div tabIndex={0}> 
                         <ReactMarkdown 
                             linkTarget="_blank"

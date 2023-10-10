@@ -51,9 +51,9 @@ export const ChatHistoryListItemCell: React.FC<ChatHistoryListItemCellProps> = (
     const isSelected = item?.id === appStateContext?.state.currentChat?.id;
     const dialogContentProps = {
         type: DialogType.close,
-        title: 'Are you sure you want to delete this item?',
+        title: 'Weet je zeker dat je dit item wilt verwijderen?',
         closeButtonAriaLabel: 'Close',
-        subText: 'The history of this chat session will permanently removed.',
+        subText: 'De geschiedenis van deze chatsessie wordt permanent verwijderd.',
     };
 
     const modalProps = {
@@ -113,7 +113,7 @@ export const ChatHistoryListItemCell: React.FC<ChatHistoryListItemCellProps> = (
             return;
         }
         if(editTitle == item.title){
-            setErrorRename("Error: Enter a new title to proceed.")
+            setErrorRename("Error: Vul een nieuwe titel in om door te gaan.")
             setTimeout(() => {
                 setErrorRename(undefined);
                 setTextFieldFocused(true);
@@ -126,7 +126,7 @@ export const ChatHistoryListItemCell: React.FC<ChatHistoryListItemCellProps> = (
         setRenameLoading(true)
         let response = await historyRename(item.id, editTitle);
         if(!response.ok){
-            setErrorRename("Error: could not rename item")
+            setErrorRename("Error: Niet gelukt om het item te hernoemen")
             setTimeout(() => {
                 setTextFieldFocused(true);
                 setErrorRename(undefined);
@@ -213,8 +213,8 @@ export const ChatHistoryListItemCell: React.FC<ChatHistoryListItemCellProps> = (
                 <Stack horizontal verticalAlign={'center'} style={{ width: '100%' }}>
                     <div className={styles.chatTitle}>{truncatedTitle}</div>
                     {(isSelected || isHovered) && <Stack horizontal horizontalAlign='end'>
-                        <IconButton className={styles.itemButton} iconProps={{ iconName: 'Delete' }} title="Delete" onClick={toggleDeleteDialog} onKeyDown={e => e.key === " " ? toggleDeleteDialog() : null}/>
-                        <IconButton className={styles.itemButton} iconProps={{ iconName: 'Edit' }} title="Edit" onClick={onEdit} onKeyDown={e => e.key === " " ? onEdit() : null}/>
+                        <IconButton className={styles.itemButton} iconProps={{ iconName: 'Delete' }} title="Verwijderen" onClick={toggleDeleteDialog} onKeyDown={e => e.key === " " ? toggleDeleteDialog() : null}/>
+                        <IconButton className={styles.itemButton} iconProps={{ iconName: 'Edit' }} title="Bewerken" onClick={onEdit} onKeyDown={e => e.key === " " ? onEdit() : null}/>
                     </Stack>}
                 </Stack>
             </>
@@ -235,8 +235,8 @@ export const ChatHistoryListItemCell: React.FC<ChatHistoryListItemCellProps> = (
                 modalProps={modalProps}
             >
                 <DialogFooter>
-                <PrimaryButton onClick={onDelete} text="Delete" />
-                <DefaultButton onClick={toggleDeleteDialog} text="Cancel" />
+                <PrimaryButton onClick={onDelete} text="Verwijderen" />
+                <DefaultButton onClick={toggleDeleteDialog} text="Annuleren" />
                 </DialogFooter>
             </Dialog>
         </Stack>

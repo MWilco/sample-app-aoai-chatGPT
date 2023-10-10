@@ -37,10 +37,12 @@
     background-color: white;
     margin: auto 2.5px;
     cursor: pointer;
+    color: #a816d9;
 }
 
 .itemButton:hover {
     background-color: #E6E6E6;
+    color: #a816d9;
 }
 
 .chatGroup {
